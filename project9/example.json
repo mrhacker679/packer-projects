@@ -1,0 +1,29 @@
+{
+  "variables": {
+    "region": "us-west-2",
+    "source_ami": "ami-0c55b159cbfafe1f0",
+    "instance_type": "t2.micro"
+  },
+
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "",
+      "secret_key": "",
+      "region": "{{user `region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "{{user `instance_type`}}",
+      "iam_instance_profile": "your-ec2-role-name",
+      "ssh_username": "ubuntu",
+      "ami_name": "ubuntu-nginx-{{timestamp}}"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "script": "install-nginx.sh"
+    }
+  ]
+}
+
